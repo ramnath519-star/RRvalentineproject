@@ -1,298 +1,177 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <title>Valentine Week ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle at top, #fff0f3, #ffd6e0);
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .card {
-    background: #fff;
-    width: 92%;
-    max-width: 440px;
-    border-radius: 28px;
-    padding: 28px;
-    text-align: center;
-    box-shadow: 0 35px 70px rgba(0,0,0,0.2);
-    z-index: 5;
-  }
-
-  /* SVG Rose */
-  .rose-container {
-    width: 120px;
-    margin: auto;
-    transition: transform 1s ease;
-  }
-
-  svg {
-    width: 100%;
-  }
-
-  h1 {
-    color: #c9184a;
-    font-size: 22px;
-    margin: 10px 0 4px;
-  }
-
-  h2 {
-    font-size: 20px;
-    margin: 4px 0 8px;
-  }
-
-  p {
-    font-size: 14px;
-    color: #555;
-  }
-
-  /* Valentine Days */
-  .days {
-    display: flex;
-    overflow-x: auto;
-    gap: 8px;
-    margin: 16px 0;
-  }
-
-  .day {
-    padding: 6px 14px;
-    border-radius: 20px;
-    background: #ffe5ec;
-    font-size: 12px;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  .day.active {
-    background: #ff4d6d;
-    color: #fff;
-  }
-
-  .buttons {
-    position: relative;
-    height: 70px;
-    margin-top: 16px;
-  }
-
-  button {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    position: absolute;
-  }
-
-  #yesBtn {
-    background: linear-gradient(135deg, #ff4d6d, #ff758f);
-    color: #fff;
-    left: 18%;
-  }
-
-  #noBtn {
-    background: #adb5bd;
-    color: #fff;
-    right: 18%;
-  }
-
-  .message {
-    display: none;
-    margin-top: 18px;
-    font-size: 14px;
-    line-height: 1.7;
-    border: 2px dashed #ffb3c1;
-    padding: 16px;
-    border-radius: 18px;
-    animation: fadeIn 0.7s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Floating hearts */
-  .float {
-    position: fixed;
-    top: -10px;
-    font-size: 18px;
-    animation: fall linear infinite;
-    z-index: 1;
-  }
-
-  @keyframes fall {
-    to {
-      transform: translateY(110vh) rotate(360deg);
-    }
-  }
-
-  /* Confetti */
-  .confetti {
-    position: fixed;
-    font-size: 18px;
-    animation: burst 1.2s ease forwards;
-    z-index: 10;
-  }
-
-  @keyframes burst {
-    0% { transform: scale(0) translateY(0); opacity: 1; }
-    100% { transform: scale(1.6) translateY(-140px); opacity: 0; }
-  }
-
-  .again {
-    margin-top: 16px;
-    background: #ff4d6d;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: none;
-  }
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#fff0f3,#ffd6e0);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+.card{
+  background:#fff;
+  width:92%;
+  max-width:440px;
+  border-radius:28px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 35px 70px rgba(0,0,0,.2);
+  z-index:5;
+}
+.icon{
+  width:120px;
+  margin:auto;
+  transition:transform 1s ease;
+}
+.icon svg{width:100%}
+h1{color:#c9184a;font-size:22px;margin:10px 0}
+h2{font-size:20px;margin:0}
+p{font-size:14px;color:#555}
+.days{
+  display:flex;
+  overflow-x:auto;
+  gap:8px;
+  margin:18px 0;
+}
+.day{
+  padding:6px 14px;
+  border-radius:20px;
+  background:#ffe5ec;
+  font-size:12px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.day.active{
+  background:#ff4d6d;
+  color:#fff;
+}
+.message{
+  display:none;
+  border:2px dashed #ffb3c1;
+  padding:16px;
+  border-radius:18px;
+  margin-top:18px;
+  animation:fade .7s ease;
+}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+.float{
+  position:fixed;
+  top:-10px;
+  animation:fall linear infinite;
+  z-index:1;
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.again{
+  display:none;
+  margin-top:16px;
+  padding:10px 18px;
+  border-radius:20px;
+  background:#ff4d6d;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_8b8c2f45a3.mp3" type="audio/mpeg">
+</audio>
+
 <div class="card">
-  <!-- SVG Rose -->
-  <div class="rose-container" id="rose">
-    <svg viewBox="0 0 100 120">
-      <path d="M50 20 C30 10, 10 30, 30 50 C10 60, 30 90, 50 80 C70 90, 90 60, 70 50 C90 30, 70 10, 50 20 Z"
-            fill="#c9184a"/>
-      <rect x="47" y="80" width="6" height="30" fill="#2d6a4f"/>
-    </svg>
-  </div>
+  <div class="icon" id="icon"></div>
 
-  <h1 id="dayTitle">Happy Rose Day</h1>
-  <h2>Hey Rishitha!</h2>
-  <p id="dayText">Our love blooms brighter than any rose.</p>
+  <h1 id="title">Happy Rose Day</h1>
+  <h2>Hey Rishitha ❤️</h2>
+  <p id="text">Our love blooms brighter than any rose.</p>
 
-  <!-- Valentine Week -->
   <div class="days" id="days"></div>
 
-  <div class="buttons">
-    <button id="yesBtn" onclick="acceptLove()">Yes ❤️</button>
-    <button id="noBtn">No 🙈</button>
+  <div class="message" id="msg">
+    💌 Just like this day, my feelings for you grow stronger every moment.  
+    Happy Valentine Week ❤️
   </div>
 
-  <div class="message" id="loveMsg">
-    💌 Just like this rose, my feelings for you grow more beautiful every single day.
-    You make everything feel like springtime 🌸  
-    <br><br>Happy Valentine Week ❤️
-  </div>
-
-  <button class="again" id="againBtn" onclick="resetPage()">See it again ✨</button>
+  <button class="again" id="again" onclick="location.reload()">See it again ✨</button>
 </div>
 
 <script>
-/* Valentine Week Data */
-const week = [
-  ["Rose Day", "Our love blooms brighter than any rose 🌹"],
-  ["Propose Day", "Every heartbeat whispers your name 💍"],
-  ["Chocolate Day", "Life is sweeter with you 🍫"],
-  ["Teddy Day", "You are my comfort 🤍"],
-  ["Promise Day", "Always & forever 🤞"],
-  ["Hug Day", "This hug says it all 🤗"],
-  ["Kiss Day", "Love sealed with a kiss 💋"],
-  ["Valentine’s Day", "You are my everything ❤️"]
+/* SVG ICONS */
+const icons={
+rose:`<svg viewBox="0 0 100 120"><path d="M50 20 C30 10 10 30 30 50 C10 65 30 95 50 80 C70 95 90 65 70 50 C90 30 70 10 50 20Z" fill="#c9184a"/><rect x="47" y="80" width="6" height="30" fill="#2d6a4f"/></svg>`,
+propose:`<svg viewBox="0 0 100 100"><path d="M50 80 L10 40 C0 20 20 0 40 20 L50 30 L60 20 C80 0 100 20 90 40Z" fill="#ff4d6d"/></svg>`,
+chocolate:`<svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="8" fill="#6f1d1b"/><line x1="20" y1="40" x2="80" y2="40" stroke="#fff"/><line x1="20" y1="60" x2="80" y2="60" stroke="#fff"/></svg>`,
+teddy:`<svg viewBox="0 0 100 100"><circle cx="50" cy="55" r="30" fill="#cdb4db"/><circle cx="30" cy="30" r="12" fill="#cdb4db"/><circle cx="70" cy="30" r="12" fill="#cdb4db"/></svg>`,
+promise:`<svg viewBox="0 0 100 100"><circle cx="40" cy="50" r="20" fill="none" stroke="#ff4d6d" stroke-width="6"/><circle cx="60" cy="50" r="20" fill="none" stroke="#ff4d6d" stroke-width="6"/></svg>`,
+hug:`<svg viewBox="0 0 100 100"><circle cx="35" cy="50" r="20" fill="#ffb703"/><circle cx="65" cy="50" r="20" fill="#ffb703"/></svg>`,
+kiss:`<svg viewBox="0 0 100 100"><path d="M30 50 Q50 70 70 50" stroke="#d00000" stroke-width="6" fill="none"/></svg>`,
+valentine:`<svg viewBox="0 0 100 100"><path d="M50 80 L10 40 C0 20 20 0 40 20 L50 30 L60 20 C80 0 100 20 90 40Z" fill="#c9184a"/></svg>`
+};
+
+/* WEEK DATA */
+const week=[
+["Rose Day","rose","Our love blooms brighter than any rose 🌹"],
+["Propose Day","propose","Every heartbeat whispers your name 💍"],
+["Chocolate Day","chocolate","Life is sweeter with you 🍫"],
+["Teddy Day","teddy","You are my comfort 🧸"],
+["Promise Day","promise","Always & forever 🤞"],
+["Hug Day","hug","This hug says it all 🤗"],
+["Kiss Day","kiss","Love sealed with a kiss 💋"],
+["Valentine’s Day","valentine","You are my everything ❤️"]
 ];
 
-const daysEl = document.getElementById("days");
-week.forEach((d, i) => {
-  const el = document.createElement("div");
-  el.className = "day" + (i === 0 ? " active" : "");
-  el.innerText = d[0];
-  el.onclick = () => selectDay(i);
-  daysEl.appendChild(el);
+const days=document.getElementById("days");
+const iconEl=document.getElementById("icon");
+
+week.forEach((d,i)=>{
+  const el=document.createElement("div");
+  el.className="day"+(i===0?" active":"");
+  el.innerText=d[0];
+  el.onclick=()=>selectDay(i);
+  days.appendChild(el);
 });
 
-function selectDay(i) {
-  document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
-  daysEl.children[i].classList.add("active");
-  document.getElementById("dayTitle").innerText = "Happy " + week[i][0];
-  document.getElementById("dayText").innerText = week[i][1];
+function selectDay(i){
+  document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
+  days.children[i].classList.add("active");
+  document.getElementById("title").innerText="Happy "+week[i][0];
+  document.getElementById("text").innerText=week[i][2];
+  iconEl.innerHTML=icons[week[i][1]];
+  document.getElementById("msg").style.display="block";
+  document.getElementById("again").style.display="inline-block";
+  playMusic();
 }
 
-/* Growing Rose + Sound + Confetti */
-let scale = 1;
-const rose = document.getElementById("rose");
+/* INITIAL */
+iconEl.innerHTML=icons.rose;
 
-setInterval(() => {
-  scale += 0.08;
-  rose.style.transform = `scale(${scale})`;
-  blastConfetti();
-  playPop();
-}, 1000);
-
-/* Sound (Web Audio) */
-function playPop() {
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.frequency.value = 500;
-  gain.gain.value = 0.08;
-  osc.start();
-  osc.stop(ctx.currentTime + 0.08);
+/* MUSIC */
+function playMusic(){
+  const audio=document.getElementById("bgMusic");
+  if(audio.paused) audio.play();
 }
 
-/* Confetti */
-function blastConfetti() {
-  for (let i = 0; i < 10; i++) {
-    const c = document.createElement("div");
-    c.className = "confetti";
-    c.innerHTML = Math.random() > 0.5 ? "❤️" : "✨";
-    c.style.left = 45 + Math.random() * 10 + "vw";
-    c.style.top = "45vh";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 1200);
-  }
-}
-
-/* NO Button Escape */
-const noBtn = document.getElementById("noBtn");
-noBtn.onmouseover = moveNo;
-noBtn.onclick = moveNo;
-
-function moveNo() {
-  noBtn.style.transform =
-    `translate(${Math.random()*200-100}px, ${Math.random()*100-50}px)`;
-}
-
-/* YES */
-function acceptLove() {
-  document.getElementById("loveMsg").style.display = "block";
-  document.getElementById("againBtn").style.display = "inline-block";
-}
-
-/* Reset */
-function resetPage() {
-  location.reload();
-}
-
-/* Falling hearts */
-setInterval(() => {
-  const f = document.createElement("div");
-  f.className = "float";
-  f.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
-  f.style.left = Math.random() * 100 + "vw";
-  f.style.animationDuration = Math.random() * 3 + 4 + "s";
+/* FLOATING HEARTS */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="float";
+  f.innerHTML=Math.random()>0.5?"❤️":"✨";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=Math.random()*3+4+"s";
   document.body.appendChild(f);
-  setTimeout(() => f.remove(), 7000);
-}, 350);
+  setTimeout(()=>f.remove(),7000);
+},400);
 </script>
 
 </body>
