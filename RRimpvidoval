@@ -28,10 +28,7 @@ body{
   box-shadow:0 30px 60px rgba(0,0,0,.18);
   z-index:5;
 }
-.icon{
-  font-size:70px;
-  margin-bottom:10px;
-}
+.icon{font-size:70px;margin-bottom:10px}
 h1{color:#c9184a;font-size:22px;margin:8px 0}
 h2{font-size:20px;margin:0}
 p{font-size:14px;color:#555}
@@ -42,9 +39,6 @@ input{
   border-radius:16px;
   border:1px solid #ffd6e0;
   text-align:center;
-  font-family:'Poppins',sans-serif;
-  font-size:14px;
-  outline:none;
   width:80%;
 }
 
@@ -60,36 +54,20 @@ input{
   background:#ffe5ec;
   font-size:12px;
   cursor:pointer;
-  white-space:nowrap;
 }
-.day.active{
-  background:#ff4d6d;
-  color:#fff;
-}
+.day.active{background:#ff4d6d;color:#fff}
 
-.buttons{
-  position:relative;
-  height:60px;
-  margin-top:10px;
-}
+.buttons{position:relative;height:60px}
 button{
   padding:10px 18px;
   border:none;
   border-radius:18px;
   font-weight:600;
-  cursor:pointer;
   position:absolute;
+  cursor:pointer;
 }
-#yesBtn{
-  background:#ff4d6d;
-  color:#fff;
-  left:30%;
-}
-#noBtn{
-  background:#adb5bd;
-  color:#fff;
-  right:30%;
-}
+#yesBtn{background:#ff4d6d;color:#fff;left:30%}
+#noBtn{background:#adb5bd;color:#fff;right:30%}
 
 .message{
   display:none;
@@ -100,23 +78,18 @@ button{
 }
 
 .countdown{
-  margin-top:10px;
   font-size:13px;
   color:#c9184a;
-  font-weight:500;
+  margin-top:10px;
 }
 
 .float{
   position:fixed;
   top:-10px;
   animation:fall linear infinite;
-  z-index:1;
 }
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg)}
-}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 
-/* Hide YouTube player */
 #yt-player{
   position:absolute;
   width:1px;
@@ -160,37 +133,56 @@ button{
 let personName="Rishitha";
 let currentDay=0;
 let player;
+let musicStarted=false;
+
+/* 🎵 YouTube song pool (from your playlist/radio) */
+let ytSongs=[
+  "WvFk5v7INVg",
+  "Hv0D-S2ZyAs",
+  "rC0YWZ0lly8",
+  "qzU9OrZlKb8",
+  "0G3_kG5FFfQ",
+  "2Vv-BfVoq4g",
+  "lp-EO5I60KA",
+  "JGwWNGJdvx8"
+];
+
+/* Shuffle songs */
+ytSongs.sort(()=>Math.random()-0.5);
 
 /* Valentine Week Data */
 const week=[
 ["Rose Day","🌹","Our love blooms quietly, beautifully.",
-()=>`This rose isn’t just a flower — it’s a promise that my feelings for ${personName} will never fade.`],
+()=>`This rose is a promise that my feelings for ${personName} will never fade.`],
 ["Propose Day","💍","Every heartbeat leans towards you.",
-()=>`If I had one moment to choose forever, I’d choose ${personName}.`],
+()=>`If forever had a name, it would be ${personName}.`],
 ["Chocolate Day","🍫","Life tastes sweeter with you.",
 ()=>`My love for ${personName} melts deeper every day.`],
 ["Teddy Day","🧸","You are my comfort.",
-()=>`${personName}, you are my safest place.`],
+()=>`${personName}, you are my safe place.`],
 ["Promise Day","🤞","Always & forever.",
-()=>`I promise to stand beside ${personName}, no matter what.`],
+()=>`I promise to stand beside ${personName}, always.`],
 ["Hug Day","🤗","This hug says it all.",
 ()=>`Some hugs don’t need words, just ${personName}.`],
 ["Kiss Day","💋","Love sealed softly.",
 ()=>`A kiss is my silent promise to ${personName}.`],
 ["Valentine’s Day","❤️","You are my today & tomorrow.",
-()=>`${personName}, loving you is my favorite forever.`]
+()=>`${personName}, loving you is my forever.`]
 ];
 
 const daysEl=document.getElementById("days");
+
+/* Build tabs */
 week.forEach((d,i)=>{
   const el=document.createElement("div");
   el.className="day";
   el.innerText=d[0];
-  el.onclick=()=>selectDay(i);
+  el.onclick=()=>selectDay(i,true);
   daysEl.appendChild(el);
 });
 
-function selectDay(i){
+/* Select day */
+function selectDay(i,changeSong=false){
   currentDay=i;
   document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
   daysEl.children[i].classList.add("active");
@@ -198,20 +190,29 @@ function selectDay(i){
   document.getElementById("title").innerText="Happy "+week[i][0];
   document.getElementById("text").innerText=week[i][2];
   document.getElementById("note").style.display="none";
+
+  if(player && changeSong){
+    player.loadVideoById(ytSongs[i % ytSongs.length]);
+  }
 }
 
+/* Name update */
 function updateName(){
   personName=document.getElementById("nameInput").value||"Rishitha";
   document.getElementById("nameTitle").innerText=`Hey ${personName} ❤️`;
 }
 
+/* YES */
 function showNote(){
   document.getElementById("note").innerText=week[currentDay][3]();
   document.getElementById("note").style.display="block";
-  if(player) player.playVideo();
+  if(player && !musicStarted){
+    player.playVideo();
+    musicStarted=true;
+  }
 }
 
-/* Playful NO button */
+/* NO button escape */
 const noBtn=document.getElementById("noBtn");
 noBtn.onmouseover=moveNo;
 noBtn.onclick=moveNo;
@@ -221,13 +222,13 @@ function moveNo(){
 
 /* YouTube API */
 function onYouTubeIframeAPIReady(){
-  player=new YT.Player('yt-player',{
-    videoId:'rC0YWZ0lly8',
+  player=new YT.Player("yt-player",{
+    videoId:ytSongs[0],
     playerVars:{
-      autoplay:0,
       controls:0,
+      autoplay:0,
       loop:1,
-      playlist:'rC0YWZ0lly8',
+      playlist:ytSongs.join(","),
       modestbranding:1
     }
   });
