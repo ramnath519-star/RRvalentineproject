@@ -1,134 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>💖 Just One Question</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💖 Valentine</title>
 
-<!-- Link preview when shared -->
-<meta property="og:title" content="Just One Question ❤️"/>
-<meta property="og:description" content="Answer honestly 😌"/>
-<meta property="og:type" content="website"/>
+  <!-- Social preview -->
+  <meta property="og:title" content="Will you be my valentine? ❤️" />
+  <meta property="og:description" content="Just one question…" />
+  <meta property="og:type" content="website" />
 
-<style>
-* {
-box-sizing: border-box;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    }
 
-body {
-margin: 0;
-background: linear-gradient(135deg, #ff758c, #ff7eb3);
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-}
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("IMG_0671.JPG") center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
 
-.card {
-background: #fff;
-width: 90%;
-max-width: 360px;
-padding: 20px;
-border-radius: 20px;
-text-align: center;
-box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-position: relative;
-overflow: hidden;
-}
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 22px;
+      padding: 26px 20px 28px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      position: relative;
+    }
 
-.card img {
-width: 100%;
-border-radius: 15px;
-margin-bottom: 15px;
-}
+    h2 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 28px;
+      line-height: 1.3;
+    }
 
-h2 {
-margin: 10px 0 20px;
-font-size: 22px;
-color: #333;
-}
+    .buttons {
+      position: relative;
+      height: 130px;
+    }
 
-.buttons {
-position: relative;
-height: 120px;
-}
+    button {
+      padding: 12px 30px;
+      border-radius: 30px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.25s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
 
-button {
-padding: 12px 25px;
-border-radius: 30px;
-border: none;
-font-size: 16px;
-cursor: pointer;
-position: absolute;
-transition: 0.3s;
-}
+    #yes {
+      background: #ff4d6d;
+      color: #fff;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+    }
 
-#yes {
-background: #ff4d6d;
-color: white;
-left: 50%;
-transform: translateX(-50%);
-bottom: 10px;
-}
+    #no {
+      background: #e0e0e0;
+      color: #333;
+      left: 15px;
+      bottom: 10px;
+    }
 
-#no {
-background: #ddd;
-color: #333;
-left: 20px;
-bottom: 10px;
-}
-
-.result {
-display: none;
-font-size: 20px;
-color: #ff4d6d;
-margin-top: 15px;
-}
-</style>
+    .result {
+      display: none;
+      margin-top: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #ff4d6d;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="love">
+  <div class="card">
+    <h2>Will you be my valentine? 💘</h2>
 
-<h2>Will you be my Valentine? 💘</h2>
+    <div class="buttons">
+      <button id="yes">Yes ❤️</button>
+      <button id="no">No 🙈</button>
+    </div>
 
-<div class="buttons">
-<button id="yes">Yes ❤️</button>
-<button id="no">No 🙈</button>
-</div>
+    <div class="result" id="result">
+      I knew it 😍💖
+    </div>
+  </div>
 
-<div class="result" id="result">
-Yay! I knew it 😍💖
-</div>
-</div>
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const result = document.getElementById("result");
+    const card = document.querySelector(".card");
 
-<script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const result = document.getElementById("result");
+    function moveNo() {
+      const maxX = card.clientWidth - noBtn.offsetWidth;
+      const maxY = card.clientHeight - noBtn.offsetHeight;
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("click", moveNo);
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
-function moveNo() {
-const card = document.querySelector(".card");
-const maxX = card.clientWidth - noBtn.offsetWidth;
-const maxY = card.clientHeight - noBtn.offsetHeight;
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
 
-const x = Math.random() * maxX;
-const y = Math.random() * maxY;
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo);
 
-noBtn.style.left = `${x}px`;
-noBtn.style.bottom = `${y}px`;
-}
-
-yesBtn.addEventListener("click", () => {
-document.querySelector(".buttons").style.display = "none";
-result.style.display = "block";
-});
-</script>
+    yesBtn.addEventListener("click", () => {
+      document.querySelector(".buttons").style.display = "none";
+      result.style.display = "block";
+    });
+  </script>
 
 </body>
 </html>
