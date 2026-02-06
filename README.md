@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Valentine Week ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -20,27 +21,38 @@ body{
 .card{
   background:#fff;
   width:92%;
-  max-width:440px;
-  border-radius:28px;
-  padding:28px;
+  max-width:420px;
+  border-radius:26px;
+  padding:26px;
   text-align:center;
-  box-shadow:0 35px 70px rgba(0,0,0,.2);
+  box-shadow:0 30px 60px rgba(0,0,0,.18);
   z-index:5;
 }
 .icon{
-  width:120px;
-  margin:auto;
-  transition:transform 1s ease;
+  font-size:70px;
+  margin-bottom:10px;
 }
-.icon svg{width:100%}
-h1{color:#c9184a;font-size:22px;margin:10px 0}
+h1{color:#c9184a;font-size:22px;margin:8px 0}
 h2{font-size:20px;margin:0}
 p{font-size:14px;color:#555}
+
+input{
+  margin:10px auto;
+  padding:10px;
+  border-radius:16px;
+  border:1px solid #ffd6e0;
+  text-align:center;
+  font-family:'Poppins',sans-serif;
+  font-size:14px;
+  outline:none;
+  width:80%;
+}
+
 .days{
   display:flex;
   overflow-x:auto;
   gap:8px;
-  margin:18px 0;
+  margin:16px 0;
 }
 .day{
   padding:6px 14px;
@@ -54,124 +66,188 @@ p{font-size:14px;color:#555}
   background:#ff4d6d;
   color:#fff;
 }
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:18px;
+  font-weight:600;
+  cursor:pointer;
+  background:#ff4d6d;
+  color:#fff;
+  margin-top:10px;
+}
+
 .message{
   display:none;
   border:2px dashed #ffb3c1;
   padding:16px;
-  border-radius:18px;
-  margin-top:18px;
-  animation:fade .7s ease;
+  border-radius:16px;
+  margin-top:16px;
+  animation:fade .6s ease;
 }
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1}
+}
+
+.countdown{
+  margin-top:10px;
+  font-size:13px;
+  color:#c9184a;
+  font-weight:500;
+}
+
 .float{
   position:fixed;
   top:-10px;
   animation:fall linear infinite;
   z-index:1;
 }
-@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
-.again{
-  display:none;
-  margin-top:16px;
-  padding:10px 18px;
-  border-radius:20px;
-  background:#ff4d6d;
-  color:#fff;
-  border:none;
-  cursor:pointer;
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_8b8c2f45a3.mp3" type="audio/mpeg">
+<!-- Romantic background music -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c6f8c1c0a.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
-  <div class="icon" id="icon"></div>
+  <div class="icon" id="icon">🌹</div>
 
   <h1 id="title">Happy Rose Day</h1>
-  <h2>Hey Rishitha ❤️</h2>
-  <p id="text">Our love blooms brighter than any rose.</p>
+  <h2 id="nameTitle">Hey Rishitha ❤️</h2>
+
+  <input
+    id="nameInput"
+    type="text"
+    value="Rishitha"
+    placeholder="Enter her name"
+    oninput="updateName()"
+  >
+
+  <p id="text">Our love blooms quietly, beautifully.</p>
+
+  <div class="countdown" id="countdown"></div>
 
   <div class="days" id="days"></div>
 
-  <div class="message" id="msg">
-    💌 Just like this day, my feelings for you grow stronger every moment.  
-    Happy Valentine Week ❤️
-  </div>
+  <button onclick="showNote()">Yes ❤️</button>
 
-  <button class="again" id="again" onclick="location.reload()">See it again ✨</button>
+  <div class="message" id="note"></div>
 </div>
 
 <script>
-/* SVG ICONS */
-const icons={
-rose:`<svg viewBox="0 0 100 120"><path d="M50 20 C30 10 10 30 30 50 C10 65 30 95 50 80 C70 95 90 65 70 50 C90 30 70 10 50 20Z" fill="#c9184a"/><rect x="47" y="80" width="6" height="30" fill="#2d6a4f"/></svg>`,
-propose:`<svg viewBox="0 0 100 100"><path d="M50 80 L10 40 C0 20 20 0 40 20 L50 30 L60 20 C80 0 100 20 90 40Z" fill="#ff4d6d"/></svg>`,
-chocolate:`<svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="8" fill="#6f1d1b"/><line x1="20" y1="40" x2="80" y2="40" stroke="#fff"/><line x1="20" y1="60" x2="80" y2="60" stroke="#fff"/></svg>`,
-teddy:`<svg viewBox="0 0 100 100"><circle cx="50" cy="55" r="30" fill="#cdb4db"/><circle cx="30" cy="30" r="12" fill="#cdb4db"/><circle cx="70" cy="30" r="12" fill="#cdb4db"/></svg>`,
-promise:`<svg viewBox="0 0 100 100"><circle cx="40" cy="50" r="20" fill="none" stroke="#ff4d6d" stroke-width="6"/><circle cx="60" cy="50" r="20" fill="none" stroke="#ff4d6d" stroke-width="6"/></svg>`,
-hug:`<svg viewBox="0 0 100 100"><circle cx="35" cy="50" r="20" fill="#ffb703"/><circle cx="65" cy="50" r="20" fill="#ffb703"/></svg>`,
-kiss:`<svg viewBox="0 0 100 100"><path d="M30 50 Q50 70 70 50" stroke="#d00000" stroke-width="6" fill="none"/></svg>`,
-valentine:`<svg viewBox="0 0 100 100"><path d="M50 80 L10 40 C0 20 20 0 40 20 L50 30 L60 20 C80 0 100 20 90 40Z" fill="#c9184a"/></svg>`
-};
+let personName="Rishitha";
+let currentDay=0;
 
-/* WEEK DATA */
+/* Valentine Week Data */
 const week=[
-["Rose Day","rose","Our love blooms brighter than any rose 🌹"],
-["Propose Day","propose","Every heartbeat whispers your name 💍"],
-["Chocolate Day","chocolate","Life is sweeter with you 🍫"],
-["Teddy Day","teddy","You are my comfort 🧸"],
-["Promise Day","promise","Always & forever 🤞"],
-["Hug Day","hug","This hug says it all 🤗"],
-["Kiss Day","kiss","Love sealed with a kiss 💋"],
-["Valentine’s Day","valentine","You are my everything ❤️"]
+  ["Rose Day","🌹","Our love blooms quietly, beautifully.",
+   () => `This rose isn’t just a flower — it’s a promise that my feelings for ${personName} will never fade.`],
+
+  ["Propose Day","💍","Every heartbeat leans towards you.",
+   () => `If I had one moment to choose forever, I’d choose ${personName} — every single time.`],
+
+  ["Chocolate Day","🍫","Life tastes sweeter with you.",
+   () => `Just like chocolate melts slowly, my love for ${personName} settles deeper every day.`],
+
+  ["Teddy Day","🧸","You are my comfort.",
+   () => `${personName}, whenever life feels heavy, your presence feels like home.`],
+
+  ["Promise Day","🤞","Always & forever.",
+   () => `I promise to stand beside ${personName} — in silence, in laughter, in everything.`],
+
+  ["Hug Day","🤗","This hug says it all.",
+   () => `Some hugs don’t need words… they just need ${personName}.`],
+
+  ["Kiss Day","💋","Love sealed softly.",
+   () => `A kiss is my way of telling ${personName} what words never can.`],
+
+  ["Valentine’s Day","❤️","You are my today & tomorrow.",
+   () => `${personName}, loving you is the easiest and most beautiful thing I’ve ever done.`]
 ];
 
-const days=document.getElementById("days");
-const iconEl=document.getElementById("icon");
+const daysEl=document.getElementById("days");
 
+/* Build day tabs */
 week.forEach((d,i)=>{
   const el=document.createElement("div");
-  el.className="day"+(i===0?" active":"");
+  el.className="day";
   el.innerText=d[0];
   el.onclick=()=>selectDay(i);
-  days.appendChild(el);
+  daysEl.appendChild(el);
 });
 
+/* Select day */
 function selectDay(i){
+  currentDay=i;
   document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
-  days.children[i].classList.add("active");
+  daysEl.children[i].classList.add("active");
+  document.getElementById("icon").innerText=week[i][1];
   document.getElementById("title").innerText="Happy "+week[i][0];
   document.getElementById("text").innerText=week[i][2];
-  iconEl.innerHTML=icons[week[i][1]];
-  document.getElementById("msg").style.display="block";
-  document.getElementById("again").style.display="inline-block";
-  playMusic();
+  document.getElementById("note").style.display="none";
 }
 
-/* INITIAL */
-iconEl.innerHTML=icons.rose;
-
-/* MUSIC */
-function playMusic(){
-  const audio=document.getElementById("bgMusic");
-  if(audio.paused) audio.play();
+/* Name update */
+function updateName(){
+  const input=document.getElementById("nameInput");
+  personName=input.value.trim() || "Rishitha";
+  document.getElementById("nameTitle").innerText=`Hey ${personName} ❤️`;
 }
 
-/* FLOATING HEARTS */
+/* Show personalized note */
+function showNote(){
+  document.getElementById("note").innerText=week[currentDay][3]();
+  document.getElementById("note").style.display="block";
+  document.getElementById("music").play();
+}
+
+/* Auto calendar selection */
+(function(){
+  const today=new Date();
+  if(today.getMonth()===1 && today.getDate()>=7 && today.getDate()<=14){
+    selectDay(today.getDate()-7);
+  }else{
+    selectDay(0);
+  }
+})();
+
+/* Countdown to Valentine’s Day */
+const countdownEl=document.getElementById("countdown");
+function updateCountdown(){
+  const target=new Date(new Date().getFullYear(),1,14);
+  const now=new Date();
+  const diff=target-now;
+  if(diff<=0){
+    countdownEl.innerText="💖 Happy Valentine’s Day 💖";
+    return;
+  }
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff%86400000/3600000);
+  const m=Math.floor(diff%3600000/60000);
+  const s=Math.floor(diff%60000/1000);
+  countdownEl.innerText=`Valentine’s Day in ${d}d ${h}h ${m}m ${s}s`;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+/* Falling hearts */
 setInterval(()=>{
   const f=document.createElement("div");
   f.className="float";
-  f.innerHTML=Math.random()>0.5?"❤️":"✨";
+  f.innerText=Math.random()>0.5?"❤️":"🌹";
   f.style.left=Math.random()*100+"vw";
   f.style.animationDuration=Math.random()*3+4+"s";
   document.body.appendChild(f);
   setTimeout(()=>f.remove(),7000);
-},400);
+},450);
 </script>
 
 </body>
