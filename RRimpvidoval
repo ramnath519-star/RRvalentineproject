@@ -133,6 +133,7 @@ button{
 <!-- 🎉 YES click sound (royalty-free) -->
 <audio id="yesSound">
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c2c2f8a7f.mp3" type="audio/mpeg">
+  <source src="https://www.youtube.com/watch?v=rC0YWZ0lly8&list=RDrC0YWZ0lly8&start_radio=1">
 </audio>
 
 <div class="card">
@@ -284,3 +285,4 @@ setInterval(()=>{
 
 </body>
 </html>
+
