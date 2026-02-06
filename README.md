@@ -1,314 +1,128 @@
-<!DOCTYPE html>
+#<!DOCTYPE html>
+#<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Rishitha ❤️</title>
+  <meta charset="UTF-8">
+  <title>Someone Who Can’t Say No ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-:root{
-  --pink:#ff4d6d;
-  --soft:#fff0f3;
-  --text:#d63384;
-}
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-*{box-sizing:border-box}
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
 
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#ffe4e1,#fff0f3);
-  font-family:'Segoe UI',Tahoma,sans-serif;
-  overflow:hidden;
-}
+    .card {
+      background: white;
+      width: 90%;
+      max-width: 380px;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: pop 0.8s ease;
+    }
 
-/* Floating hearts */
-.heart{
-  position:fixed;
-  top:-10vh;
-  font-size:18px;
-  pointer-events:none;
-  animation:fall linear forwards;
-  opacity:.9;
-}
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
 
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg); opacity:0;}
-}
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
 
-/* Confetti */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:12px;
-  top:-20px;
-  animation:confettiFall 3.5s linear forwards;
-}
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
 
-@keyframes confettiFall{
-  to{transform:translateY(110vh) rotate(720deg); opacity:0;}
-}
+    .emoji {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
 
-/* Card */
-.card{
-  width:330px;
-  background:rgba(255,255,255,.96);
-  padding:32px;
-  border-radius:28px;
-  text-align:center;
-  box-shadow:0 25px 60px rgba(233,30,99,.25);
-  position:relative;
-  z-index:5;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
 
-.lang{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:10px;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-.lang button{
-  border:none;
-  background:#eee;
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:12px;
-  cursor:pointer;
-}
+    button:hover {
+      background: #e63950;
+    }
 
-.progress{
-  font-size:11px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:#ff758c;
-  margin-bottom:10px;
-}
+    .result {
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      display: none;
+    }
 
-.main-heart{
-  font-size:58px;
-  animation:pulse .9s infinite alternate;
-}
-
-@keyframes pulse{
-  from{transform:scale(1)}
-  to{transform:scale(1.15)}
-}
-
-h1{
-  color:var(--text);
-  font-size:22px;
-  min-height:80px;
-  line-height:1.4;
-  margin:18px 0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.buttons{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:18px;
-  min-height:60px;
-}
-
-button{
-  padding:12px 30px;
-  font-size:17px;
-  font-weight:700;
-  border:none;
-  border-radius:50px;
-  cursor:pointer;
-  box-shadow:0 4px 15px rgba(0,0,0,.15);
-}
-
-#yes{background:var(--pink);color:#fff}
-#no{background:#adb5bd;color:#fff;position:relative}
-
-#success{display:none}
-
-#photo{
-  width:100%;
-  border-radius:20px;
-  margin:15px 0;
-  display:none;
-}
-
-#countdown{
-  margin-top:15px;
-  padding:14px;
-  background:var(--soft);
-  border-radius:14px;
-  border:1px dashed var(--pink);
-  color:var(--pink);
-  font-weight:600;
-}
-
-.share{
-  margin-top:15px;
-  background:#25D366;
-  color:white;
-}
-</style>
+    .heart {
+      color: #ff4d6d;
+    }
+  </style>
 </head>
-
 <body>
 
-<audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+  <div class="card">
+    <div class="emoji">🤗🌹</div>
+    <h1>Who can’t say NO to you?</h1>
+    <p>Tag that special person and make it official 😉</p>
 
-<div class="card">
-  <div class="lang">
-    <button onclick="setLang('en')">English</button>
-    <button onclick="setLang('te')">తెలుగు</button>
+    <input type="text" id="name" placeholder="Enter their name 💕">
+
+    <button onclick="showMessage()">Tag Them ❤️</button>
+
+    <div class="result" id="result"></div>
   </div>
 
-  <div id="quiz">
-    <div class="progress" id="step">Step 1 of 6</div>
-    <div class="main-heart">💖</div>
-    <h1 id="question"></h1>
+  <script>
+    function showMessage() {
+      const name = document.getElementById("name").value.trim();
+      const result = document.getElementById("result");
 
-    <div class="buttons">
-      <button id="yes">Yes</button>
-      <button id="no">No</button>
-    </div>
-  </div>
+      if (name === "") {
+        result.style.display = "block";
+        result.innerHTML = "You can’t tag without a name 😜";
+        return;
+      }
 
-  <div id="success">
-    <div class="main-heart">🥰</div>
-    <h2>Yay! ❤️</h2>
-    <img id="photo" src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="us">
-    <p>I knew you'd say yes, Rishitha!</p>
-    <div id="countdown"></div>
-    <button class="share" onclick="shareWhatsApp()">Share on WhatsApp</button>
-  </div>
-</div>
-
-<script>
-/* ---------- TEXT ---------- */
-const text={
-  en:[
-    "Rishitha, do you believe in love?",
-    "Would you go on a Valentine’s date with me?",
-    "Do small surprises make you happy?",
-    "Is time together more important than gifts?",
-    "Do you think we’d make a good pair?",
-    "Will you be my Valentine?"
-  ],
-  te:[
-    "రిషితా, నువ్వు ప్రేమను నమ్ముతావా?",
-    "నాతో వాలెంటైన్ డేట్ కి వస్తావా?",
-    "చిన్న సర్ప్రైజ్‌లు నిన్ను సంతోషపెడతాయా?",
-    "బహుమతులకంటే సమయం ముఖ్యమా?",
-    "మనిద్దరం మంచి జంటమా?",
-    "నా వాలెంటైన్ అవుతావా?"
-  ]
-};
-
-let lang="en", step=0;
-const qEl=document.getElementById("question");
-const stepEl=document.getElementById("step");
-
-/* ---------- TYPING EFFECT ---------- */
-function typeText(text){
-  qEl.innerText="";
-  let i=0;
-  const t=setInterval(()=>{
-    qEl.innerText+=text[i++];
-    if(i>=text.length) clearInterval(t);
-  },35);
-}
-
-/* ---------- INIT ---------- */
-typeText(text[lang][0]);
-
-/* ---------- LANGUAGE ---------- */
-function setLang(l){
-  lang=l;
-  typeText(text[lang][step]);
-}
-
-/* ---------- MUSIC ---------- */
-const music=document.getElementById("music");
-document.body.addEventListener("click",()=>music.play().catch(()=>{}),{once:true});
-
-/* ---------- BUTTONS ---------- */
-const yes=document.getElementById("yes");
-const no=document.getElementById("no");
-
-no.addEventListener("mouseover",escapeNo);
-no.addEventListener("touchstart",escapeNo);
-
-function escapeNo(){
-  no.style.position="fixed";
-  no.style.left=Math.random()*(innerWidth-no.offsetWidth-20)+"px";
-  no.style.top=Math.random()*(innerHeight-no.offsetHeight-20)+"px";
-}
-
-yes.onclick=()=>{
-  step++;
-  if(step<6){
-    stepEl.innerText=`Step ${step+1} of 6`;
-    typeText(text[lang][step]);
-    no.style.position="relative";
-  }else{
-    document.getElementById("quiz").style.display="none";
-    document.getElementById("success").style.display="block";
-    document.getElementById("photo").style.display="block";
-    startCountdown();
-    confetti();
-  }
-};
-
-/* ---------- COUNTDOWN ---------- */
-function startCountdown(){
-  const target=new Date("Feb 14, 2026 00:00:00").getTime();
-  setInterval(()=>{
-    const d=target-Date.now();
-    const days=Math.floor(d/86400000);
-    const hrs=Math.floor((d/3600000)%24);
-    const min=Math.floor((d/60000)%60);
-    const sec=Math.floor((d/1000)%60);
-    countdown.innerText=`Our date in: ${days}d ${hrs}h ${min}m ${sec}s`;
-  },1000);
-}
-
-/* ---------- CONFETTI ---------- */
-function confetti(){
-  for(let i=0;i<120;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},90%,60%)`;
-    c.style.animationDuration=2+Math.random()*2+"s";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  }
-}
-
-/* ---------- BACKGROUND HEARTS ---------- */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.textContent="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(Math.random()*3+3)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},900);
-
-/* ---------- WHATSAPP ---------- */
-function shareWhatsApp(){
-  const msg="She said YES ❤️💍";
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
-}
-</script>
+      result.style.display = "block";
+      result.innerHTML = `
+        💌 <span class="heart">${name}</span>, you’re officially
+        <b>not allowed</b> to say NO to me 🤭❤️
+      `;
+    }
+  </script>
 
 </body>
 </html>
