@@ -1,2 +1,135 @@
 # RRvalentineproject
-RRvalentinesdayproject
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>💖 Just One Question</title>
+
+<!-- Link preview when shared -->
+<meta property="og:title" content="Just One Question ❤️"/>
+<meta property="og:description" content="Answer honestly 😌"/>
+<meta property="og:type" content="website"/>
+
+<style>
+* {
+box-sizing: border-box;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+}
+
+body {
+margin: 0;
+background: linear-gradient(135deg, #ff758c, #ff7eb3);
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.card {
+background: #fff;
+width: 90%;
+max-width: 360px;
+padding: 20px;
+border-radius: 20px;
+text-align: center;
+box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+position: relative;
+overflow: hidden;
+}
+
+.card img {
+width: 100%;
+border-radius: 15px;
+margin-bottom: 15px;
+}
+
+h2 {
+margin: 10px 0 20px;
+font-size: 22px;
+color: #333;
+}
+
+.buttons {
+position: relative;
+height: 120px;
+}
+
+button {
+padding: 12px 25px;
+border-radius: 30px;
+border: none;
+font-size: 16px;
+cursor: pointer;
+position: absolute;
+transition: 0.3s;
+}
+
+#yes {
+background: #ff4d6d;
+color: white;
+left: 50%;
+transform: translateX(-50%);
+bottom: 10px;
+}
+
+#no {
+background: #ddd;
+color: #333;
+left: 20px;
+bottom: 10px;
+}
+
+.result {
+display: none;
+font-size: 20px;
+color: #ff4d6d;
+margin-top: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="love">
+
+<h2>Will you be my Valentine? 💘</h2>
+
+<div class="buttons">
+<button id="yes">Yes ❤️</button>
+<button id="no">No 🙈</button>
+</div>
+
+<div class="result" id="result">
+Yay! I knew it 😍💖
+</div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const result = document.getElementById("result");
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
+
+function moveNo() {
+const card = document.querySelector(".card");
+const maxX = card.clientWidth - noBtn.offsetWidth;
+const maxY = card.clientHeight - noBtn.offsetHeight;
+
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+
+noBtn.style.left = `${x}px`;
+noBtn.style.bottom = `${y}px`;
+}
+
+yesBtn.addEventListener("click", () => {
+document.querySelector(".buttons").style.display = "none";
+result.style.display = "block";
+});
+</script>
+
+</body>
+</html>
