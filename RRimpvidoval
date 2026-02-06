@@ -97,11 +97,6 @@ button{
   padding:16px;
   border-radius:16px;
   margin-top:16px;
-  animation:fade .6s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1}
 }
 
 .countdown{
@@ -120,21 +115,22 @@ button{
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
 }
+
+/* Hide YouTube player */
+#yt-player{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🎶 Royalty-free romantic background music (Pixabay – free use) -->
-<audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/14/audio_4f5aaf4c0b.mp3" type="audio/mpeg">
-</audio>
-
-<!-- 🎉 YES click sound (royalty-free) -->
-<audio id="yesSound">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c2c2f8a7f.mp3" type="audio/mpeg">
-  <source src="https://www.youtube.com/watch?v=rC0YWZ0lly8&list=RDrC0YWZ0lly8&start_radio=1">
-</audio>
+<!-- Hidden YouTube Player -->
+<div id="yt-player"></div>
 
 <div class="card">
   <div class="icon" id="icon">🌹</div>
@@ -142,13 +138,7 @@ button{
   <h1 id="title">Happy Rose Day</h1>
   <h2 id="nameTitle">Hey Rishitha ❤️</h2>
 
-  <input
-    id="nameInput"
-    type="text"
-    value="Rishitha"
-    placeholder="Enter her name"
-    oninput="updateName()"
-  >
+  <input id="nameInput" value="Rishitha" oninput="updateName()">
 
   <p id="text">Our love blooms quietly, beautifully.</p>
 
@@ -164,34 +154,34 @@ button{
   <div class="message" id="note"></div>
 </div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
 let personName="Rishitha";
 let currentDay=0;
-let musicStarted=false;
+let player;
 
 /* Valentine Week Data */
 const week=[
-  ["Rose Day","🌹","Our love blooms quietly, beautifully.",
-   () => `This rose isn’t just a flower — it’s a promise that my feelings for ${personName} will never fade.`],
-  ["Propose Day","💍","Every heartbeat leans towards you.",
-   () => `If I had one moment to choose forever, I’d choose ${personName} — every single time.`],
-  ["Chocolate Day","🍫","Life tastes sweeter with you.",
-   () => `Just like chocolate melts slowly, my love for ${personName} settles deeper every day.`],
-  ["Teddy Day","🧸","You are my comfort.",
-   () => `${personName}, whenever life feels heavy, your presence feels like home.`],
-  ["Promise Day","🤞","Always & forever.",
-   () => `I promise to stand beside ${personName} — in silence, in laughter, in everything.`],
-  ["Hug Day","🤗","This hug says it all.",
-   () => `Some hugs don’t need words… they just need ${personName}.`],
-  ["Kiss Day","💋","Love sealed softly.",
-   () => `A kiss is my way of telling ${personName} what words never can.`],
-  ["Valentine’s Day","❤️","You are my today & tomorrow.",
-   () => `${personName}, loving you is the easiest and most beautiful thing I’ve ever done.`]
+["Rose Day","🌹","Our love blooms quietly, beautifully.",
+()=>`This rose isn’t just a flower — it’s a promise that my feelings for ${personName} will never fade.`],
+["Propose Day","💍","Every heartbeat leans towards you.",
+()=>`If I had one moment to choose forever, I’d choose ${personName}.`],
+["Chocolate Day","🍫","Life tastes sweeter with you.",
+()=>`My love for ${personName} melts deeper every day.`],
+["Teddy Day","🧸","You are my comfort.",
+()=>`${personName}, you are my safest place.`],
+["Promise Day","🤞","Always & forever.",
+()=>`I promise to stand beside ${personName}, no matter what.`],
+["Hug Day","🤗","This hug says it all.",
+()=>`Some hugs don’t need words, just ${personName}.`],
+["Kiss Day","💋","Love sealed softly.",
+()=>`A kiss is my silent promise to ${personName}.`],
+["Valentine’s Day","❤️","You are my today & tomorrow.",
+()=>`${personName}, loving you is my favorite forever.`]
 ];
 
 const daysEl=document.getElementById("days");
-
-/* Build days */
 week.forEach((d,i)=>{
   const el=document.createElement("div");
   el.className="day";
@@ -200,7 +190,6 @@ week.forEach((d,i)=>{
   daysEl.appendChild(el);
 });
 
-/* Select day */
 function selectDay(i){
   currentDay=i;
   document.querySelectorAll(".day").forEach(d=>d.classList.remove("active"));
@@ -211,35 +200,37 @@ function selectDay(i){
   document.getElementById("note").style.display="none";
 }
 
-/* Name update */
 function updateName(){
-  personName=document.getElementById("nameInput").value.trim()||"Rishitha";
+  personName=document.getElementById("nameInput").value||"Rishitha";
   document.getElementById("nameTitle").innerText=`Hey ${personName} ❤️`;
 }
 
-/* YES action with sound + bgm */
 function showNote(){
   document.getElementById("note").innerText=week[currentDay][3]();
   document.getElementById("note").style.display="block";
-
-  document.getElementById("yesSound").play();
-
-  if(!musicStarted){
-    document.getElementById("bgm").volume=0.6;
-    document.getElementById("bgm").play();
-    musicStarted=true;
-  }
+  if(player) player.playVideo();
 }
 
 /* Playful NO button */
 const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",moveNo);
-noBtn.addEventListener("click",moveNo);
-
+noBtn.onmouseover=moveNo;
+noBtn.onclick=moveNo;
 function moveNo(){
-  const x=Math.random()*200-100;
-  const y=Math.random()*100-50;
-  noBtn.style.transform=`translate(${x}px,${y}px)`;
+  noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
+}
+
+/* YouTube API */
+function onYouTubeIframeAPIReady(){
+  player=new YT.Player('yt-player',{
+    videoId:'rC0YWZ0lly8',
+    playerVars:{
+      autoplay:0,
+      controls:0,
+      loop:1,
+      playlist:'rC0YWZ0lly8',
+      modestbranding:1
+    }
+  });
 }
 
 /* Auto calendar */
@@ -247,26 +238,17 @@ function moveNo(){
   const t=new Date();
   if(t.getMonth()===1 && t.getDate()>=7 && t.getDate()<=14){
     selectDay(t.getDate()-7);
-  }else{
-    selectDay(0);
-  }
+  }else selectDay(0);
 })();
 
 /* Countdown */
-const countdownEl=document.getElementById("countdown");
 function updateCountdown(){
   const target=new Date(new Date().getFullYear(),1,14);
   const now=new Date();
   const diff=target-now;
-  if(diff<=0){
-    countdownEl.innerText="💖 Happy Valentine’s Day 💖";
-    return;
-  }
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff%86400000/3600000);
-  const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
-  countdownEl.innerText=`Valentine’s Day in ${d}d ${h}h ${m}m ${s}s`;
+  document.getElementById("countdown").innerText=
+    diff>0?`Valentine’s Day in ${Math.floor(diff/86400000)} days 💖`
+          :"💖 Happy Valentine’s Day 💖";
 }
 setInterval(updateCountdown,1000);
 updateCountdown();
@@ -285,4 +267,3 @@ setInterval(()=>{
 
 </body>
 </html>
-
