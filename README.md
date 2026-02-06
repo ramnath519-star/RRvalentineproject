@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Rose Day ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>Valentine Week ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -13,41 +13,43 @@
     font-family: 'Poppins', sans-serif;
     background: radial-gradient(circle at top, #fff0f3, #ffd6e0);
     overflow: hidden;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
   }
 
   .card {
-    background: #ffffff;
-    width: 90%;
-    max-width: 420px;
-    border-radius: 26px;
-    padding: 30px;
+    background: #fff;
+    width: 92%;
+    max-width: 440px;
+    border-radius: 28px;
+    padding: 28px;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.18);
-    position: relative;
+    box-shadow: 0 35px 70px rgba(0,0,0,0.2);
     z-index: 5;
   }
 
-  /* Growing rose */
-  .rose {
-    font-size: 42px;
-    transition: transform 1s ease-in-out;
-    display: inline-block;
-    margin-bottom: 10px;
+  /* SVG Rose */
+  .rose-container {
+    width: 120px;
+    margin: auto;
+    transition: transform 1s ease;
+  }
+
+  svg {
+    width: 100%;
   }
 
   h1 {
     color: #c9184a;
     font-size: 22px;
-    margin: 8px 0;
+    margin: 10px 0 4px;
   }
 
   h2 {
     font-size: 20px;
-    margin-bottom: 8px;
+    margin: 4px 0 8px;
   }
 
   p {
@@ -55,10 +57,32 @@
     color: #555;
   }
 
+  /* Valentine Days */
+  .days {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .day {
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: #ffe5ec;
+    font-size: 12px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .day.active {
+    background: #ff4d6d;
+    color: #fff;
+  }
+
   .buttons {
-    margin-top: 26px;
     position: relative;
     height: 70px;
+    margin-top: 16px;
   }
 
   button {
@@ -73,25 +97,25 @@
 
   #yesBtn {
     background: linear-gradient(135deg, #ff4d6d, #ff758f);
-    color: white;
+    color: #fff;
     left: 18%;
   }
 
   #noBtn {
     background: #adb5bd;
-    color: white;
+    color: #fff;
     right: 18%;
   }
 
   .message {
     display: none;
-    margin-top: 22px;
+    margin-top: 18px;
     font-size: 14px;
     line-height: 1.7;
     border: 2px dashed #ffb3c1;
-    padding: 18px;
-    border-radius: 16px;
-    animation: fadeIn 0.8s ease;
+    padding: 16px;
+    border-radius: 18px;
+    animation: fadeIn 0.7s ease;
   }
 
   @keyframes fadeIn {
@@ -99,14 +123,13 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Falling items */
+  /* Floating hearts */
   .float {
     position: fixed;
     top: -10px;
     font-size: 18px;
     animation: fall linear infinite;
     z-index: 1;
-    opacity: 0.9;
   }
 
   @keyframes fall {
@@ -115,17 +138,27 @@
     }
   }
 
-  /* Confetti burst */
+  /* Confetti */
   .confetti {
     position: fixed;
-    font-size: 16px;
+    font-size: 18px;
     animation: burst 1.2s ease forwards;
     z-index: 10;
   }
 
   @keyframes burst {
     0% { transform: scale(0) translateY(0); opacity: 1; }
-    100% { transform: scale(1.5) translateY(-120px); opacity: 0; }
+    100% { transform: scale(1.6) translateY(-140px); opacity: 0; }
+  }
+
+  .again {
+    margin-top: 16px;
+    background: #ff4d6d;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: none;
   }
 </style>
 </head>
@@ -133,79 +166,133 @@
 <body>
 
 <div class="card">
-  <div class="rose" id="rose">🌹</div>
+  <!-- SVG Rose -->
+  <div class="rose-container" id="rose">
+    <svg viewBox="0 0 100 120">
+      <path d="M50 20 C30 10, 10 30, 30 50 C10 60, 30 90, 50 80 C70 90, 90 60, 70 50 C90 30, 70 10, 50 20 Z"
+            fill="#c9184a"/>
+      <rect x="47" y="80" width="6" height="30" fill="#2d6a4f"/>
+    </svg>
+  </div>
 
-  <h1>Happy Rose Day</h1>
+  <h1 id="dayTitle">Happy Rose Day</h1>
   <h2>Hey Rishitha!</h2>
-  <p>Our love blooms brighter than any rose.</p>
+  <p id="dayText">Our love blooms brighter than any rose.</p>
 
-  <p><b>Will you accept this rose? 🤗</b></p>
+  <!-- Valentine Week -->
+  <div class="days" id="days"></div>
 
   <div class="buttons">
-    <button id="yesBtn" onclick="showLove()">Yes ❤️</button>
+    <button id="yesBtn" onclick="acceptLove()">Yes ❤️</button>
     <button id="noBtn">No 🙈</button>
   </div>
 
   <div class="message" id="loveMsg">
-    💌 <b>Happy Rose Day, Rishitha!</b><br><br>
-    Just like this rose, my feelings for you grow more beautiful every single day.
-    You make everything feel like springtime 🌸<br><br>
-    Thank you for being you ❤️✨
+    💌 Just like this rose, my feelings for you grow more beautiful every single day.
+    You make everything feel like springtime 🌸  
+    <br><br>Happy Valentine Week ❤️
   </div>
+
+  <button class="again" id="againBtn" onclick="resetPage()">See it again ✨</button>
 </div>
 
 <script>
-  /* Growing rose + confetti */
-  let scale = 1;
-  const rose = document.getElementById("rose");
+/* Valentine Week Data */
+const week = [
+  ["Rose Day", "Our love blooms brighter than any rose 🌹"],
+  ["Propose Day", "Every heartbeat whispers your name 💍"],
+  ["Chocolate Day", "Life is sweeter with you 🍫"],
+  ["Teddy Day", "You are my comfort 🤍"],
+  ["Promise Day", "Always & forever 🤞"],
+  ["Hug Day", "This hug says it all 🤗"],
+  ["Kiss Day", "Love sealed with a kiss 💋"],
+  ["Valentine’s Day", "You are my everything ❤️"]
+];
 
-  setInterval(() => {
-    scale += 0.08;
-    rose.style.transform = `scale(${scale})`;
-    blastConfetti();
-  }, 1000);
+const daysEl = document.getElementById("days");
+week.forEach((d, i) => {
+  const el = document.createElement("div");
+  el.className = "day" + (i === 0 ? " active" : "");
+  el.innerText = d[0];
+  el.onclick = () => selectDay(i);
+  daysEl.appendChild(el);
+});
 
-  /* Confetti blast */
-  function blastConfetti() {
-    for (let i = 0; i < 8; i++) {
-      const c = document.createElement("div");
-      c.classList.add("confetti");
-      c.innerHTML = Math.random() > 0.5 ? "❤️" : "✨";
-      c.style.left = 45 + Math.random() * 10 + "vw";
-      c.style.top = "45vh";
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 1200);
-    }
+function selectDay(i) {
+  document.querySelectorAll(".day").forEach(d => d.classList.remove("active"));
+  daysEl.children[i].classList.add("active");
+  document.getElementById("dayTitle").innerText = "Happy " + week[i][0];
+  document.getElementById("dayText").innerText = week[i][1];
+}
+
+/* Growing Rose + Sound + Confetti */
+let scale = 1;
+const rose = document.getElementById("rose");
+
+setInterval(() => {
+  scale += 0.08;
+  rose.style.transform = `scale(${scale})`;
+  blastConfetti();
+  playPop();
+}, 1000);
+
+/* Sound (Web Audio) */
+function playPop() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.value = 500;
+  gain.gain.value = 0.08;
+  osc.start();
+  osc.stop(ctx.currentTime + 0.08);
+}
+
+/* Confetti */
+function blastConfetti() {
+  for (let i = 0; i < 10; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.innerHTML = Math.random() > 0.5 ? "❤️" : "✨";
+    c.style.left = 45 + Math.random() * 10 + "vw";
+    c.style.top = "45vh";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1200);
   }
+}
 
-  /* NO button escape */
-  const noBtn = document.getElementById("noBtn");
-  noBtn.addEventListener("mouseover", moveButton);
-  noBtn.addEventListener("click", moveButton);
+/* NO Button Escape */
+const noBtn = document.getElementById("noBtn");
+noBtn.onmouseover = moveNo;
+noBtn.onclick = moveNo;
 
-  function moveButton() {
-    const x = Math.random() * 220 - 110;
-    const y = Math.random() * 120 - 60;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-  }
+function moveNo() {
+  noBtn.style.transform =
+    `translate(${Math.random()*200-100}px, ${Math.random()*100-50}px)`;
+}
 
-  /* YES action */
-  function showLove() {
-    document.getElementById("loveMsg").style.display = "block";
-  }
+/* YES */
+function acceptLove() {
+  document.getElementById("loveMsg").style.display = "block";
+  document.getElementById("againBtn").style.display = "inline-block";
+}
 
-  /* Falling hearts & roses */
-  function createFloat() {
-    const el = document.createElement("div");
-    el.classList.add("float");
-    el.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.animationDuration = Math.random() * 3 + 4 + "s";
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 7000);
-  }
+/* Reset */
+function resetPage() {
+  location.reload();
+}
 
-  setInterval(createFloat, 350);
+/* Falling hearts */
+setInterval(() => {
+  const f = document.createElement("div");
+  f.className = "float";
+  f.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
+  f.style.left = Math.random() * 100 + "vw";
+  f.style.animationDuration = Math.random() * 3 + 4 + "s";
+  document.body.appendChild(f);
+  setTimeout(() => f.remove(), 7000);
+}, 350);
 </script>
 
 </body>
