@@ -6,237 +6,308 @@
 <title>For Rishitha ❤️</title>
 
 <style>
-body {
-  background: linear-gradient(135deg, #ffe4e1, #fff0f3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  overflow: hidden;
-  touch-action: none;
+:root{
+  --pink:#ff4d6d;
+  --soft:#fff0f3;
+  --text:#d63384;
 }
 
-/* Falling hearts */
-.falling-heart {
-  position: fixed;
-  top: -10vh;
-  font-size: 18px;
-  user-select: none;
-  pointer-events: none;
-  animation: fall linear forwards;
-  z-index: 1;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffe4e1,#fff0f3);
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  overflow:hidden;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
+/* Floating hearts */
+.heart{
+  position:fixed;
+  top:-10vh;
+  font-size:18px;
+  pointer-events:none;
+  animation:fall linear forwards;
+  opacity:.9;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg); opacity:0;}
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:12px;
+  top:-20px;
+  animation:confettiFall 3.5s linear forwards;
+}
+
+@keyframes confettiFall{
+  to{transform:translateY(110vh) rotate(720deg); opacity:0;}
 }
 
 /* Card */
-.card {
-  background: rgba(255,255,255,0.96);
-  padding: 36px;
-  border-radius: 28px;
-  box-shadow: 0 25px 60px rgba(233,30,99,0.25);
-  text-align: center;
-  width: 320px;
-  backdrop-filter: blur(10px);
-  border: 2px solid #fff;
-  z-index: 10;
-  position: relative;
+.card{
+  width:330px;
+  background:rgba(255,255,255,.96);
+  padding:32px;
+  border-radius:28px;
+  text-align:center;
+  box-shadow:0 25px 60px rgba(233,30,99,.25);
+  position:relative;
+  z-index:5;
 }
 
-.main-heart {
-  font-size: 60px;
-  animation: pulse 0.9s infinite alternate;
+.lang{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:10px;
 }
 
-@keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.15); }
+.lang button{
+  border:none;
+  background:#eee;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+  cursor:pointer;
 }
 
-.progress {
-  font-size: 11px;
-  color: #ff758c;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+.progress{
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#ff758c;
+  margin-bottom:10px;
 }
 
-h1 {
-  color: #d63384;
-  font-size: 22px;
-  margin: 20px 0;
-  min-height: 80px;
-  line-height: 1.4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.main-heart{
+  font-size:58px;
+  animation:pulse .9s infinite alternate;
 }
 
-.btn-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  min-height: 60px;
+@keyframes pulse{
+  from{transform:scale(1)}
+  to{transform:scale(1.15)}
 }
 
-button {
-  padding: 12px 30px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+h1{
+  color:var(--text);
+  font-size:22px;
+  min-height:80px;
+  line-height:1.4;
+  margin:18px 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-#yes-btn {
-  background-color: #ff4d6d;
-  color: white;
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:18px;
+  min-height:60px;
 }
 
-#no-btn {
-  background-color: #adb5bd;
-  color: white;
-  position: relative;
-  transition: 0.15s ease;
+button{
+  padding:12px 30px;
+  font-size:17px;
+  font-weight:700;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
 
-#success-msg {
-  display: none;
+#yes{background:var(--pink);color:#fff}
+#no{background:#adb5bd;color:#fff;position:relative}
+
+#success{display:none}
+
+#photo{
+  width:100%;
+  border-radius:20px;
+  margin:15px 0;
+  display:none;
 }
 
-#countdown {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #ff4d6d;
-  font-size: 1.05rem;
-  background: #fff0f3;
-  padding: 15px;
-  border-radius: 15px;
-  border: 1px dashed #ff4d6d;
+#countdown{
+  margin-top:15px;
+  padding:14px;
+  background:var(--soft);
+  border-radius:14px;
+  border:1px dashed var(--pink);
+  color:var(--pink);
+  font-weight:600;
+}
+
+.share{
+  margin-top:15px;
+  background:#25D366;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" loop>
+<audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
-  <div id="quiz-box">
-    <div class="progress" id="step-text">Step 1 of 6</div>
-    <div class="main-heart">💖</div>
-    <h1 id="question-text">Rishitha, do you believe in love?</h1>
+  <div class="lang">
+    <button onclick="setLang('en')">English</button>
+    <button onclick="setLang('te')">తెలుగు</button>
+  </div>
 
-    <div class="btn-container">
-      <button id="yes-btn">Yes</button>
-      <button id="no-btn">No</button>
+  <div id="quiz">
+    <div class="progress" id="step">Step 1 of 6</div>
+    <div class="main-heart">💖</div>
+    <h1 id="question"></h1>
+
+    <div class="buttons">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
     </div>
   </div>
 
-  <div id="success-msg">
+  <div id="success">
     <div class="main-heart">🥰</div>
     <h2>Yay! ❤️</h2>
+    <img id="photo" src="https://images.unsplash.com/photo-1517841905240-472988babdf9" alt="us">
     <p>I knew you'd say yes, Rishitha!</p>
-    <div id="countdown">Calculating our time...</div>
+    <div id="countdown"></div>
+    <button class="share" onclick="shareWhatsApp()">Share on WhatsApp</button>
   </div>
 </div>
 
 <script>
-/* ---------------- DATA ---------------- */
-const questions = [
-  "Rishitha, do you believe in love?",
-  "Rishitha, would you go on a Valentine’s date with me?",
-  "Rishitha, do small surprises make you happy?",
-  "Rishitha, is spending time together more important than gifts?",
-  "Rishitha, do you think we’d make a good pair?",
-  "Rishitha, will you be my Valentine?"
-];
+/* ---------- TEXT ---------- */
+const text={
+  en:[
+    "Rishitha, do you believe in love?",
+    "Would you go on a Valentine’s date with me?",
+    "Do small surprises make you happy?",
+    "Is time together more important than gifts?",
+    "Do you think we’d make a good pair?",
+    "Will you be my Valentine?"
+  ],
+  te:[
+    "రిషితా, నువ్వు ప్రేమను నమ్ముతావా?",
+    "నాతో వాలెంటైన్ డేట్ కి వస్తావా?",
+    "చిన్న సర్ప్రైజ్‌లు నిన్ను సంతోషపెడతాయా?",
+    "బహుమతులకంటే సమయం ముఖ్యమా?",
+    "మనిద్దరం మంచి జంటమా?",
+    "నా వాలెంటైన్ అవుతావా?"
+  ]
+};
 
-let currentStep = 0;
-const music = document.getElementById("bgMusic");
+let lang="en", step=0;
+const qEl=document.getElementById("question");
+const stepEl=document.getElementById("step");
 
-/* ---------------- MUSIC ---------------- */
-function playMusic() {
-  music.play().catch(() => {});
+/* ---------- TYPING EFFECT ---------- */
+function typeText(text){
+  qEl.innerText="";
+  let i=0;
+  const t=setInterval(()=>{
+    qEl.innerText+=text[i++];
+    if(i>=text.length) clearInterval(t);
+  },35);
 }
-document.body.addEventListener("click", playMusic, { once: true });
 
-/* ---------------- BUTTON LOGIC ---------------- */
-const yesBtn = document.getElementById("yes-btn");
-const noBtn = document.getElementById("no-btn");
+/* ---------- INIT ---------- */
+typeText(text[lang][0]);
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
-
-function moveNo() {
-  playMusic();
-  noBtn.style.position = "fixed";
-  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
+/* ---------- LANGUAGE ---------- */
+function setLang(l){
+  lang=l;
+  typeText(text[lang][step]);
 }
 
-yesBtn.addEventListener("click", nextQuestion);
+/* ---------- MUSIC ---------- */
+const music=document.getElementById("music");
+document.body.addEventListener("click",()=>music.play().catch(()=>{}),{once:true});
 
-function nextQuestion() {
-  playMusic();
-  currentStep++;
+/* ---------- BUTTONS ---------- */
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
 
-  if (currentStep < questions.length) {
-    document.getElementById("question-text").innerText = questions[currentStep];
-    document.getElementById("step-text").innerText = `Step ${currentStep + 1} of 6`;
-    noBtn.style.position = "relative";
-    noBtn.style.left = "0";
-    noBtn.style.top = "0";
-  } else {
-    document.getElementById("quiz-box").style.display = "none";
-    document.getElementById("success-msg").style.display = "block";
+no.addEventListener("mouseover",escapeNo);
+no.addEventListener("touchstart",escapeNo);
+
+function escapeNo(){
+  no.style.position="fixed";
+  no.style.left=Math.random()*(innerWidth-no.offsetWidth-20)+"px";
+  no.style.top=Math.random()*(innerHeight-no.offsetHeight-20)+"px";
+}
+
+yes.onclick=()=>{
+  step++;
+  if(step<6){
+    stepEl.innerText=`Step ${step+1} of 6`;
+    typeText(text[lang][step]);
+    no.style.position="relative";
+  }else{
+    document.getElementById("quiz").style.display="none";
+    document.getElementById("success").style.display="block";
+    document.getElementById("photo").style.display="block";
     startCountdown();
+    confetti();
+  }
+};
+
+/* ---------- COUNTDOWN ---------- */
+function startCountdown(){
+  const target=new Date("Feb 14, 2026 00:00:00").getTime();
+  setInterval(()=>{
+    const d=target-Date.now();
+    const days=Math.floor(d/86400000);
+    const hrs=Math.floor((d/3600000)%24);
+    const min=Math.floor((d/60000)%60);
+    const sec=Math.floor((d/1000)%60);
+    countdown.innerText=`Our date in: ${days}d ${hrs}h ${min}m ${sec}s`;
+  },1000);
+}
+
+/* ---------- CONFETTI ---------- */
+function confetti(){
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},90%,60%)`;
+    c.style.animationDuration=2+Math.random()*2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
   }
 }
 
-/* ---------------- COUNTDOWN ---------------- */
-function startCountdown() {
-  const target = new Date("Feb 14, 2026 00:00:00").getTime();
+/* ---------- BACKGROUND HEARTS ---------- */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},900);
 
-  setInterval(() => {
-    const now = Date.now();
-    const gap = target - now;
-
-    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-    const h = Math.floor((gap / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((gap / (1000 * 60)) % 60);
-    const s = Math.floor((gap / 1000) % 60);
-
-    document.getElementById("countdown").innerText =
-      `Our date in: ${d}d ${h}h ${m}m ${s}s`;
-  }, 1000);
+/* ---------- WHATSAPP ---------- */
+function shareWhatsApp(){
+  const msg="She said YES ❤️💍";
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
-
-/* ---------------- HEARTS ---------------- */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "falling-heart";
-  heart.innerText = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}
-
-setInterval(createHeart, 800);
 </script>
 
 </body>
